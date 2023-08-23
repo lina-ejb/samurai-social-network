@@ -1,0 +1,82 @@
+/*.chatContainer {*/
+/*    width: 100%;*/
+/*    height: 100vh;*/
+/*    background: #1d61c2;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    color: #fff;*/
+/*}*/
+
+/*.dialogs {*/
+/*    background: #1d61c2;*/
+/*    width: 60%;*/
+/*    min-width: 250px;*/
+/*    display: flex;*/
+/*    padding: 20px 40px;*/
+/*    font-weight: 300;*/
+/*    gap: 20px;*/
+
+/*}*/
+
+/*.dialogsItems {*/
+/*    flex-basis: 250px;*/
+/*    background: #3874c9;*/
+/*    border-radius: 8px;*/
+/*}*/
+
+/*.messages {*/
+/*    background: rgba(255, 255, 255, 0.1);*/
+/*    padding: 20px 40px;*/
+/*    border-radius: 8px;*/
+/*    flex-basis: 70%;*/
+/*    font-weight: 300;*/
+/*    display: flex;*/
+/*    gap: 20px;*/
+/*    flex-direction: column;*/
+/*}*/
+
+.dialog {
+    text-align: center;
+    margin-top: 40px;
+    font-weight: 400;
+}
+
+.dialog a {
+    text-decoration: none;
+    color: lightgoldenrodyellow;
+}
+
+.dialog img {
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+}
+
+.chatContainer {
+    border: 1px solid white;
+    border-radius: 10px;
+    width: 65%;
+    height: 80%;
+    display: flex;
+    overflow: hidden;
+}
+
+.dialogs {
+    display: flex;
+
+}
+
+.dialogsItems {
+    flex: 1;
+    background-color: #3e3c61;
+
+}
+
+
+.messages {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+

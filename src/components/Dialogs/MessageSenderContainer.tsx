@@ -1,15 +1,25 @@
+import {AppRootStateType} from "../../redux/store";
+import {InitialMessagesPageType, sendNewMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
 import {MessageSender} from "./MessageSender";
 import {connect} from "react-redux";
-import {AppDispatch, AppRootStateType} from "../../../../redux/redux-store";
-import {sendNewMessageAC, updateNewMessageTextAC} from "../../../../redux/dialogs-reducer";
-//dialogs
-const mapStateToProps = (state: AppRootStateType) => {
+import {Dispatch} from "redux";
+
+type MapStatePropsType = {
+    newMessage: InitialMessagesPageType
+}
+const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
         newMessage: state.dialogs
-
     }
 }
-const mapDispatchToProps = (dispatch: AppDispatch) => {
+
+type MapDispatchPropsType = {
+    newTextHandler: (newText: string) => void
+    onSendMessageClick: () => void
+
+}
+export type NewDialogsMessageType = MapStatePropsType & MapDispatchPropsType
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
         newTextHandler: (newText: string) => {
             dispatch(updateNewMessageTextAC(newText))
@@ -25,25 +35,3 @@ export const MessageSenderContainer = connect(mapStateToProps, mapDispatchToProp
 
 
 
-
-//
-// export const MessageSenderContainer = (props: MessageSenderType) => {
-//
-//     const dispatch = useDispatch()
-//     const messagesPage = useSelector<AppRootStateType, MessagesPageType>(state => state.dialogs)
-//
-//     const onSendMessageClick = () => {
-//         dispatch(sendNewMessageAC(messagesPage.newMessageText))
-//     }
-//
-//     const newTextHandler = (newText: string) => {
-//         dispatch(updateNewMessageTextAC(newText))
-//     }
-//
-//     return (
-//         <MessageSender newTextHandler={newTextHandler}
-//                        onSendMessageClick={onSendMessageClick}
-//                        newMessage={props.state}
-//         />
-//     )
-// }

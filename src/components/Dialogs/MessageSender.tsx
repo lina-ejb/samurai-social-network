@@ -1,19 +1,9 @@
 import React, {ChangeEvent} from 'react';
-import s from './MessageSender.module.css'
-import {MessagesPageType} from "../../../../redux/store";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import {NewDialogsMessageType} from "./MessageSenderContainer";
 
-
-
-
-type MessageSenderType = {
-    onSendMessageClick: () => void
-    newTextHandler: (newText: string) => void
-    newMessage: MessagesPageType
-}
-
-export const MessageSender = (props: MessageSenderType) => {
+export const MessageSender = (props: NewDialogsMessageType) => {
 
     const addMessage = () => {
         props.onSendMessageClick()
@@ -25,19 +15,23 @@ export const MessageSender = (props: MessageSenderType) => {
     }
 
     return (
-        <div className={s.messageTextarea}>
+        <>
             <TextField
+                size="small"
                 placeholder={'Type your text'}
                 value={props.newMessage.newMessageText}
                 onChange={newTextHandler}
             />
-            <Button onClick={addMessage}
-                    size='large'
+            <Button sx={{ background: '#25476a',
+            }}
+
+                onClick={addMessage}
+                    size='small'
                     variant="contained"
             >
                 Send
             </Button>
-        </div>
+        </>
     )
 }
 

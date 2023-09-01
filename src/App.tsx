@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Layout} from "./components/Layout";
+import {Navigate, Route, Routes} from 'react-router-dom';
+import {Profile} from "./components/Profile/Profile";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export const ROUTES = {
+    profile: '/profile/*',
+    dialogs: '/dialogs/*',
+    users: '/users/*'
+};
 
-export default App;
+
+export const App = () => (
+    <Layout>
+        <Routes>
+            <Route path={'/'} element={<Navigate to={'/profile/*'}/>}/>
+            <Route path={ROUTES.dialogs} element={<DialogsContainer/>}/>
+            <Route path={ROUTES.profile} element={<Profile/>}/>
+            <Route path={ROUTES.users} element={<UsersContainer/>}/>
+        </Routes>
+    </Layout>
+
+);

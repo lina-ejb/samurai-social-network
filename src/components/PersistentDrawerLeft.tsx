@@ -11,37 +11,61 @@ import MessageIcon from '@mui/icons-material/Message';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+import {useNavigate} from "react-router-dom";
 
 
 const useStyles = makeStyles({
     drawer: {
         width: '190px',
-        color: 'blue',
+        '& .MuiPaper-root': {
+            background: '#dce0ef',
+            position: 'static',
+            overflowX: 'hidden',
+
+        },
     }
 })
 
-export const PersistentDrawerLeft = () => {
+export function PersistentDrawerLeft() {
+
+    const navigate = useNavigate()
     const classes = useStyles()
     const itemList = [
         {
             text: 'Profile',
-            icon: <PermIdentityIcon fontSize='medium'/>
+            icon: <PermIdentityIcon fontSize='medium'/>,
+            onClick: () => {
+                navigate('/profile')
+            }
         },
         {
             text: 'Messages',
-            icon: <MessageIcon fontSize='medium'/>
+            icon: <MessageIcon fontSize='medium'/>,
+            onClick: () => {
+                navigate('/dialogs')
+            }
         },
         {
-            text: 'News',
-            icon: <NewspaperIcon fontSize='medium'/>
+            text: 'Users',
+            icon: <NewspaperIcon fontSize='medium'/>,
+            onClick: () => {
+                navigate('/users')
+            }
         },
         {
             text: 'Music',
-            icon: <MusicNoteIcon fontSize='medium'/>
+            icon: <MusicNoteIcon fontSize='medium'/>,
+            onClick: () => {
+                navigate('/music')
+            }
         },
+
         {
             text: 'Settings',
-            icon: <SettingsApplicationsIcon fontSize='medium'/>
+            icon: <SettingsApplicationsIcon fontSize='medium'/>,
+            onClick: () => {
+                navigate('/settings')
+            },
         }
     ]
     return (
@@ -49,18 +73,17 @@ export const PersistentDrawerLeft = () => {
         <MUIDrawer variant={"permanent"} className={classes.drawer}>
             <List>
                 {itemList.map((item, index) => {
-                    const {text, icon} = item
+                    const {text, icon, onClick} = item
                     return (
                         <ListItem key={text} disablePadding sx={{
                             '&.Mui-selected': {
                                 backgroundColor: 'primary.dark',
-                                color: 'common.white',
                             },
                             '&:hover': {
                                 backgroundColor: 'primary.light',
-                                color: 'common.white',
                             },
-                        }}>
+                        }}
+                                  onClick={onClick}>
 
                             <ListItemButton>
                                 {icon && <ListItemIcon sx={[
@@ -83,4 +106,5 @@ export const PersistentDrawerLeft = () => {
 
     )
 
-};
+}
+

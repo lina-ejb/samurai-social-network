@@ -20,7 +20,11 @@ const useStyles = makeStyles({
         '& .MuiPaper-root': {
             background: '#dce0ef',
             position: 'static',
-            overflowX: 'hidden',
+
+
+        },
+        '& .MuiList-root': {
+            position: 'fixed',
 
         },
     }

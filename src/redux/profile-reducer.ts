@@ -1,5 +1,8 @@
+import {GetUsersResponseType} from "../api/api";
+
 const ADD_TASK = 'ADD-TASK'
 const CHANGE_TEXT = 'CHANGE-TEXT'
+const SET_USER_PROFILE = 'SET-USER-PROFILE'
 
 export type PostType = {
     _id: number
@@ -9,16 +12,19 @@ export type PostType = {
 export type ProfilePageType = {
     posts: Array<PostType>
     newPostMessage: string
+    profile: GetUsersResponseType | null
 
 }
+
 const initialState: ProfilePageType = {
     newPostMessage: '',
     posts: [
         {_id: 1, message: 'What\'s on your mind?', likeCounter: 25},
         {_id: 2, message: "Hey mate! How are things going?", likeCounter: 5},
     ],
+    profile: null as null | GetUsersResponseType
 }
-type ActionType = AddPostTypeAC | ChangeTextTypeAC
+type ActionType = AddPostTypeAC | ChangeTextTypeAC | SetUserTypeAC
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
     switch (action.type) {
 
@@ -35,7 +41,9 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 ...state,
                 newPostMessage: action.text
             }
-
+        case SET_USER_PROFILE: {
+            return {...state, profile: action.profile}
+        }
         default:
             return state
 
@@ -56,3 +64,6 @@ export const newTextAC = (text: string) => {
         text
     } as const
 }
+
+export type SetUserTypeAC = ReturnType<typeof setUserProfile>
+export const setUserProfile = (profile: GetUsersResponseType | null) => ({type: SET_USER_PROFILE, profile} as const)

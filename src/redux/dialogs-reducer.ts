@@ -26,11 +26,11 @@ export type DialogType = {
 const initialState = {
     newMessageText: '',
     chatBoxMessages: [
-        {_id: 1, message: 'Hello, she didn’t do anything and rested all day, how are you?'},
+        {_id: 1, message: 'Hello, how are you?'},
         {_id: 2, message: "Are we meeting today?"},
-        {_id: 3, message: "massa Lorem ipsum dolor"},
-        {_id: 4, message: "LCum sociis natoque penatibus et magnis dis parturient montes"},
-        {_id: 5, message: 'natoque penatibus et magnis'},
+        {_id: 3, message: "Can you help me with this issue?"},
+        {_id: 4, message: "Let's go shopping today"},
+        {_id: 5, message: 'Why am I so tired after doing nothing all day?'},
     ],
     dialogs: [
         {_id: 1, name: 'Alina', avatar: avatar},

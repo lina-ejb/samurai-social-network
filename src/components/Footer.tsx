@@ -7,8 +7,8 @@ export const Footer = function ({children}: PropsWithChildren<unknown>) {
 
     return (
         <Box  sx={{
-            backgroundColor: '#25476a',
-            color: '#4f9e91',
+            backgroundColor: '#2B6E99',
+            color: '#000000',
             fontWeight: '500',
             padding: theme.spacing(2),
             textAlign: 'center',
@@ -19,3 +19,5 @@ export const Footer = function ({children}: PropsWithChildren<unknown>) {
     );
 };
 
+// #25476a
+//#5C80BC

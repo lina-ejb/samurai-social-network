@@ -1,37 +1,55 @@
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
-import {followAC, InitialStateType, setUsersAC, unfollowAC, UserType} from "../../redux/users-reducer";
+import {
+    follow,
+    InitialStateType,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers, toggleFollowingProgress,
+    toggleIsFetching,
+    unfollow,
+    UserType
+} from "../../redux/users-reducer";
 import {Users} from "./Users";
-import {Dispatch} from "redux";
 
 type MapStatePropsType = {
     users: InitialStateType
+    pageSize: number,
+    totalUsersCount: number
+    currentPage: number
+    isLoading: boolean
+    followingInProgress: Array<number>
 }
 
-const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
-    return {
-        users: state.usersPage
-    }
-}
 type MapDispatchPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     setUsers: (users: Array<UserType>) => void
+    setCurrentPage: (pageNumber: number) => void
+    setTotalUsersCount: (totalCount: number) => void
+    toggleIsFetching: (isLoading: boolean) => void
+    toggleFollowingProgress: (isLoading: boolean,  userId: number) => void
 }
 export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
+
+
+const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId: number) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users: Array<UserType>) => {
-            dispatch(setUsersAC(users))
-        }
+        users: state.usersPage,
+        pageSize: state.usersPage.pageSize,
+        totalUsersCount: state.usersPage.totalUsersCount,
+        currentPage: state.usersPage.currentPage,
+        isLoading: state.usersPage.isLoading,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
-export default UsersContainer
+export default connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    toggleIsFetching,
+    toggleFollowingProgress
+})(Users)

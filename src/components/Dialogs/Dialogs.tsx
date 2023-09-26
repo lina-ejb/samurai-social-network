@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     },
     parentPaper: {
         margin: "auto",
-        maxWidth: 1600,
+        width: '100%',
         padding: theme.spacing(2),
         height: '70vh',
         [theme.breakpoints.between('xs', 'md')]: {
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
         display: 'flex',
         [theme.breakpoints.between('xs', 'md')]: {
             flexDirection: 'column',
-
+            visibility: 'hidden'
         }
     },
     sender: {
@@ -65,14 +65,13 @@ export const Dialogs = (props: DialogsPropsType) => {
                 id={el._id}/>
         ))
         return <div className={classes.root}>
-            <Paper className={classes.parentPaper}>
-                <Grid container rowSpacing={1}>
-                    <Grid xs={6} sm={8} md={12}>
+                <Grid container rowSpacing={1} >
+                    <Grid xs={6} sm={8} md={12} item={true}>
                         <Paper className={classes.messageBox}>{mappedMessages}</Paper>
                     </Grid>
                     <Grid item xs={6} sm={4} md={4} container>
-                        <Grid>
-                            <Grid>
+                        <Grid item={true}>
+                            <Grid item={true}>
                                 <Box className={classes.dialogs}
                                 > {mappedDialogs}</Box>
                             </Grid>
@@ -86,7 +85,6 @@ export const Dialogs = (props: DialogsPropsType) => {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Paper>
         </div>
     }
 ;

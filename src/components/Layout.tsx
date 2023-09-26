@@ -1,10 +1,10 @@
 import React, {ReactNode} from 'react';
 import {Box, styled} from "@mui/system";
-import Header from "./Header";
 import {Toolbar} from "@mui/material";
 import {PersistentDrawerLeft} from "./PersistentDrawerLeft";
 import {Main} from "./Main";
 import {Footer} from "./Footer";
+import HeaderContainer from "./Header/HeaderContainer";
 
 
 const OuterContainer = styled(Box)`
@@ -31,7 +31,7 @@ export const Layout = ({children}: ILayoutProps) => {
     return (
         <div>
             <OuterContainer>
-                <Header/>
+                <HeaderContainer/>
                 <Toolbar/>
                 <InnerContainer>
                     <PersistentDrawerLeft/>

@@ -1,15 +1,6 @@
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
-import {
-    follow,
-    InitialStateType,
-    setCurrentPage,
-    setTotalUsersCount,
-    setUsers, toggleFollowingProgress,
-    toggleIsFetching,
-    unfollow,
-    UserType
-} from "../../redux/users-reducer";
+import {followUserTC, getUsersTC, InitialStateType, unfollowUserTC} from "../../redux/users-reducer";
 import {Users} from "./Users";
 
 type MapStatePropsType = {
@@ -19,19 +10,15 @@ type MapStatePropsType = {
     currentPage: number
     isLoading: boolean
     followingInProgress: Array<number>
+    isAuth: boolean
 }
 
 type MapDispatchPropsType = {
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    setUsers: (users: Array<UserType>) => void
-    setCurrentPage: (pageNumber: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    toggleIsFetching: (isLoading: boolean) => void
-    toggleFollowingProgress: (isLoading: boolean,  userId: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+    unFollowUser: (id: number) => void
+    followUser: (id: number) => void
 }
 export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
-
 
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
@@ -41,15 +28,12 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isLoading: state.usersPage.isLoading,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        isAuth: state.userAuth.isAuth
     }
 }
 export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
-    setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching,
-    toggleFollowingProgress
+    getUsers: getUsersTC,
+    unFollowUser: unfollowUserTC,
+    followUser: followUserTC
 })(Users)

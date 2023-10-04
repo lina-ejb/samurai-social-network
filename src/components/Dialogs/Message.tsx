@@ -16,8 +16,8 @@ const useStyles = makeStyles({
     text: {
         maxWidth: '527px',
         borderRadius: '10px 10px 0 10px',
-        backgroundColor: '#56BFF0',
-        color: '#000000',
+        backgroundColor: '#25476a',
+        color: 'white',
         padding: theme.spacing(1),
         [theme.breakpoints.between('xs', 'md')]: {
 

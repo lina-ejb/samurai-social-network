@@ -1,6 +1,7 @@
+import {AppThunkDispatch} from "./store";
+import {usersAPI} from "../api/api";
+
 const SET_USER_DATA = 'SET-USER-DATA'
-
-
 
 export type AuthType = {
     id: number | null,
@@ -32,4 +33,19 @@ export const authReducer = (state: AuthType = initialState, action: ActionType) 
 }
 
 export type SetUserTypeAC = ReturnType<typeof setAuthUserData>
-export const setAuthUserData = (id: number, login: string, email: string) => ({type: SET_USER_DATA, data: {id, login, email}} as const)
+export const setAuthUserData = (id: number, login: string, email: string) => ({
+    type: SET_USER_DATA,
+    data: {id, login, email}
+} as const)
+
+export const getLogUserInTC = () => {
+    return (dispatch: AppThunkDispatch) => {
+        usersAPI.getLogUserIn()
+            .then((res) => {
+                if (res.data.resultCode === 0) {
+                    let {id, login, email} = res.data.data
+                    dispatch(setAuthUserData(id, login, email))
+                }
+            })
+    }
+}

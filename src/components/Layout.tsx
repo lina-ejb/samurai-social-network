@@ -5,6 +5,7 @@ import {PersistentDrawerLeft} from "./PersistentDrawerLeft";
 import {Main} from "./Main";
 import {Footer} from "./Footer";
 import HeaderContainer from "./Header/HeaderContainer";
+import {Navigate} from "react-router-dom";
 
 
 const OuterContainer = styled(Box)`
@@ -28,6 +29,7 @@ interface ILayoutProps {
 
 
 export const Layout = ({children}: ILayoutProps) => {
+
     return (
         <div>
             <OuterContainer>
@@ -37,7 +39,7 @@ export const Layout = ({children}: ILayoutProps) => {
                     <PersistentDrawerLeft/>
                     <Main>{children}</Main>
                 </InnerContainer>
-               <Footer></Footer>
+                <Footer></Footer>
             </OuterContainer>
 
         </div>

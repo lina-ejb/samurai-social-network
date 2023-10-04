@@ -4,7 +4,7 @@ import {styled} from "@mui/system";
 const StyledMain = styled('main')`
   height: 100%;
   flex: 1;
-  padding: 10px;
+ // padding: 10px;
  
 `;
 

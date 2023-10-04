@@ -1,3 +1,7 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+import {AppThunkDispatch} from "./store";
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -27,7 +31,7 @@ const initialState: InitialStateType = {
     pageSize: 7,
     totalUsersCount: 0,
     currentPage: 1,
-    isLoading:true,
+    isLoading: true,
     followingInProgress: []
 }
 export type InitialStateType = {
@@ -38,7 +42,14 @@ export type InitialStateType = {
     isLoading: boolean
     followingInProgress: Array<number>
 }
-type ActionType = FollowUserType | UnfollowUserType | SetUsersType | SetPageType | SetUsersTotalCountType | SetIsLoadingType | SetIsFollowingProgressType
+type ActionType =
+    FollowUserType
+    | UnfollowUserType
+    | SetUsersType
+    | SetPageType
+    | SetUsersTotalCountType
+    | SetIsLoadingType
+    | SetIsFollowingProgressType
 export const usersReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case FOLLOW:
@@ -71,15 +82,15 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
             return {...state, isLoading: !action.isLoading}
         }
         case TOGGLE_IS_FOLLOWING_PROGRESS : {
-              return {
-                  ...state,
-                  followingInProgress: action.isLoading
-                      ?  [...state.followingInProgress, action.userId]
-                      : state.followingInProgress.filter((id: number) => {
-                        return   id !== action.userId
-                      })
+            return {
+                ...state,
+                followingInProgress: action.isLoading
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter((id: number) => {
+                        return id !== action.userId
+                    })
 
-              }
+            }
 
         }
         default:
@@ -131,5 +142,56 @@ export const toggleIsFetching = (isLoading: boolean) => {
         isLoading
     } as const
 }
-export type SetIsFollowingProgressType = ReturnType< typeof toggleFollowingProgress>
-export const toggleFollowingProgress = (isLoading: boolean, userId: number) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isLoading, userId} as const)
+export type SetIsFollowingProgressType = ReturnType<typeof toggleFollowingProgress>
+export const toggleFollowingProgress = (isLoading: boolean, userId: number) => ({
+    type: TOGGLE_IS_FOLLOWING_PROGRESS,
+    isLoading,
+    userId
+} as const)
+
+
+export const getUsersTC = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch<ActionType>) => {
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(toggleIsFetching(false))
+                dispatch(setUsers(data.items))
+                dispatch(setTotalUsersCount(data.totalCount))
+            });
+    }
+}
+
+export const followUserTC = (id: number) => {
+    return (dispatch: Dispatch<ActionType>) => {
+        dispatch(toggleFollowingProgress(true, id))
+        dispatch(toggleIsFetching(true))
+
+        usersAPI.addFollower(id)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(follow(id))
+                }
+                dispatch(toggleIsFetching(false))
+                dispatch(toggleFollowingProgress(false, id))
+            })
+    }
+}
+
+export const unfollowUserTC = (id: number) => {
+    return (dispatch: AppThunkDispatch) => {
+        dispatch(toggleFollowingProgress(true, id))
+        dispatch(toggleIsFetching(true))
+
+        usersAPI.deleteFollower(id)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(unfollow(id))
+                }
+                dispatch(toggleIsFetching(false))
+                dispatch(toggleFollowingProgress(false, id))
+
+            });
+    }
+}
+

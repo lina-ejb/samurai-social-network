@@ -29,7 +29,7 @@ const Header = (props: HeaderPropsType) => {
                             variant="contained" color="success"
                             component="button"
                             onClick={() => {
-                                navigate('/login')
+                                navigate('/profile')
                             }}
                         >Login</Button>}
 

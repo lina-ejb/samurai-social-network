@@ -1,4 +1,6 @@
-import {GetUsersResponseType} from "../api/api";
+import {GetUsersResponseType, usersAPI} from "../api/api";
+import {Dispatch} from "redux";
+import {AppThunkDispatch} from "./store";
 
 const ADD_TASK = 'ADD-TASK'
 const CHANGE_TEXT = 'CHANGE-TEXT'
@@ -67,3 +69,13 @@ export const newTextAC = (text: string) => {
 
 export type SetUserTypeAC = ReturnType<typeof setUserProfile>
 export const setUserProfile = (profile: GetUsersResponseType | null) => ({type: SET_USER_PROFILE, profile} as const)
+
+export const getProfileTC = (userId: string) => {
+    return (dispatch: AppThunkDispatch) => {
+        usersAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
+
+            });
+    }
+}

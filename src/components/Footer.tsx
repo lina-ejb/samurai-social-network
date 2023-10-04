@@ -8,7 +8,7 @@ export const Footer = function ({children}: PropsWithChildren<unknown>) {
     return (
         <Box  sx={{
             backgroundColor: '#2B6E99',
-            color: '#000000',
+            color: '#9CD4C7',
             fontWeight: '500',
             padding: theme.spacing(2),
             textAlign: 'center',

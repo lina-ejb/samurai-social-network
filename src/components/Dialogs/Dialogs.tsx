@@ -4,10 +4,8 @@ import Message from "./Message";
 import {MessageSenderContainer} from "./MessageSenderContainer";
 import {makeStyles} from "@mui/styles";
 import {createTheme} from "@mui/system";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import {DialogsPropsType} from "./DialogsContainer";
+import {Box, Grid, Paper} from "@mui/material";
 
 const theme = createTheme();
 const useStyles = makeStyles({
@@ -64,28 +62,29 @@ export const Dialogs = (props: DialogsPropsType) => {
                 message={el.message}
                 id={el._id}/>
         ))
+
         return <div className={classes.root}>
-                <Grid container rowSpacing={1} >
-                    <Grid xs={6} sm={8} md={12} item={true}>
-                        <Paper className={classes.messageBox}>{mappedMessages}</Paper>
-                    </Grid>
-                    <Grid item xs={6} sm={4} md={4} container>
+            <Grid container rowSpacing={1}>
+                <Grid xs={6} sm={8} md={12} item={true}>
+                    <Paper className={classes.messageBox}>{mappedMessages}</Paper>
+                </Grid>
+                <Grid item xs={6} sm={4} md={4} container>
+                    <Grid item={true}>
                         <Grid item={true}>
-                            <Grid item={true}>
-                                <Box className={classes.dialogs}
-                                > {mappedDialogs}</Box>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={12} sm={8} md={8} container>
-                        <Grid xs container direction="column">
-                            <Grid className={classes.sender}>
-                                <MessageSenderContainer/>
-                            </Grid>
+                            <Box className={classes.dialogs}
+                            > {mappedDialogs}</Box>
                         </Grid>
                     </Grid>
                 </Grid>
-        </div>
+                <Grid item xs={12} sm={8} md={8} container>
+                    <Grid xs container direction="column">
+                        <Grid className={classes.sender}>
+                            <MessageSenderContainer/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </div>;
     }
 ;
 

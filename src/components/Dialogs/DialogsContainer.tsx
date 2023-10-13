@@ -2,10 +2,8 @@ import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
 import {Dialogs} from "./Dialogs";
 import {InitialMessagesPageType} from "../../redux/dialogs-reducer";
-import {withAuthNavigate} from "../../hoc/withAuthNavigate";
 import {compose} from "redux";
 import React from "react";
-
 
 
 type MapStatePropsType = {
@@ -21,10 +19,9 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-
  export default compose<React.ComponentType>(
      connect(mapStateToProps),
-     withAuthNavigate
+ /*    withAuthNavigate*/
  )(Dialogs)
 
 

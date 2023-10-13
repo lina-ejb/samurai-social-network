@@ -65,20 +65,16 @@ export const Dialogs = (props: DialogsPropsType) => {
 
         return <div className={classes.root}>
             <Grid container rowSpacing={1}>
-                <Grid xs={6} sm={8} md={12} item={true}>
+                <Grid item xs={6} sm={8} md={12} >
                     <Paper className={classes.messageBox}>{mappedMessages}</Paper>
                 </Grid>
                 <Grid item xs={6} sm={4} md={4} container>
-                    <Grid item={true}>
-                        <Grid item={true}>
                             <Box className={classes.dialogs}
                             > {mappedDialogs}</Box>
-                        </Grid>
-                    </Grid>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8} container>
-                    <Grid xs container direction="column">
-                        <Grid className={classes.sender}>
+                    <Grid xs container direction="column" >
+                        <Grid className={classes.sender} >
                             <MessageSenderContainer/>
                         </Grid>
                     </Grid>

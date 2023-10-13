@@ -2,10 +2,9 @@ import React from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
-import {getProfileTC} from "../../redux/profile-reducer";
+import {getProfile, getStatus, updateStatus} from "../../redux/profile-reducer";
 import {withRouter, WithRouterProps} from "./WithRouterContainer";
 import {GetUsersResponseType} from "../../api/api";
-import {withAuthNavigate} from "../../hoc/withAuthNavigate";
 import {compose} from "redux";
 
 type PathParamsType = {
@@ -14,10 +13,15 @@ type PathParamsType = {
 
 type MapStatePropsType = {
     profile: GetUsersResponseType | null
+    status: string
+    authorisedUserID: any
+    isAuth: boolean
 
 }
 type MapDispatchPropsType = {
     getProfile: (userId: string) => void
+    getStatus: (userId: string) => void
+    updateStatus: (status: string | boolean) => void
 }
 
 type OwnTypeProps = MapDispatchPropsType & MapStatePropsType & PathParamsType
@@ -30,26 +34,36 @@ class ProfileContainer extends React.Component<PropsType> {
         let userId = this.props.params.userId
 
         if (!userId) {
-            userId = '2'
+            userId = '29788'
+            if (!userId) {
+
+            //    this.props.navigate('/login');
+            }
         }
 
         this.props.getProfile(userId)
+        this.props.getStatus(userId)
 
     }
 
     render() {
-        return <Profile {...this.props} profile={this.props.profile}/>
+        return <Profile {...this.props}
+                        profile={this.props.profile}
+                        updateStatus={this.props.updateStatus}
+                        status={this.props.status}/>
     }
 
 }
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     profile: state.profile.profile,
-
+    status: state.profile.status,
+    authorisedUserID: state.userAuth.id,
+    isAuth: state.userAuth.isAuth
 })
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getProfile: getProfileTC}),
+    connect(mapStateToProps, {getProfile, getStatus: getStatus, updateStatus: updateStatus}),
     withRouter,
-    withAuthNavigate
+  /*  withAuthNavigate*/
 )(ProfileContainer)

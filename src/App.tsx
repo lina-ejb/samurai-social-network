@@ -1,10 +1,10 @@
 import React from 'react';
-import {Layout} from "./components/Layout";
 import {Navigate, Route, Routes} from 'react-router-dom';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import {Login} from "./components/Login/Login";
+import {Layout} from "./components/Layout/Layout";
 
 
 export const ROUTES = {
@@ -16,7 +16,8 @@ export const ROUTES = {
 
 
 export const App = () => (
-    <Layout>
+
+<Layout>
         <Routes>
             <Route path={'/'} element={<Navigate to={'/'}/>}/>
             <Route path={ROUTES.dialogs} element={<DialogsContainer/>}/>

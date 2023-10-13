@@ -1,11 +1,11 @@
 import React, {ReactNode} from 'react';
 import {Box, styled} from "@mui/system";
 import {Toolbar} from "@mui/material";
-import {PersistentDrawerLeft} from "./PersistentDrawerLeft";
-import {Main} from "./Main";
-import {Footer} from "./Footer";
-import HeaderContainer from "./Header/HeaderContainer";
-import {Navigate} from "react-router-dom";
+import {PersistentDrawerLeft} from "../PersistentDrawerLeft";
+import {Main} from "../Main";
+import {Footer} from "../Footer";
+import {ErrorSnackbar} from "../ErrorSnackbar/ErrorSnackbar";
+import HeaderContainer from "../Header/HeaderContainer";
 
 
 const OuterContainer = styled(Box)`
@@ -32,8 +32,9 @@ export const Layout = ({children}: ILayoutProps) => {
 
     return (
         <div>
+            <ErrorSnackbar/>
             <OuterContainer>
-                <HeaderContainer/>
+              <HeaderContainer/>
                 <Toolbar/>
                 <InnerContainer>
                     <PersistentDrawerLeft/>

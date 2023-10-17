@@ -1,0 +1,12 @@
+
+.main {
+    background-color: rgb(153, 217, 234);
+    /* grid-row: 2 / 4;*/
+    flex: 1;
+
+}
+
+.item img {
+    width: 48px;
+    height: 48px;
+}

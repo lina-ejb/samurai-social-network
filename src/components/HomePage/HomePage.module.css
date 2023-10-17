@@ -1,0 +1,27 @@
+.homePageImg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+}
+
+.homePageImg img {
+    max-width: 100%;
+
+}
+
+.heading {
+    text-align: center;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+    font-size: 35px;
+}
+
+.text {
+    font-size: 28px;
+    text-align: center;
+}

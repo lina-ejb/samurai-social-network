@@ -12,7 +12,7 @@ const DialogItems = (props: DialogItemsType) => {
 
         return (
             <div className={s.dialog + ' ' + s.active}>
-                <img
+                <img alt='user_photo'
                     src={props.user}
                 />
                 <NavLink to={path}>{props.name}</NavLink>

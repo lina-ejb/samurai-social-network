@@ -1,30 +1,46 @@
 import React from 'react';
-import {Navigate, Route, Routes} from 'react-router-dom';
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
-import {Login} from "./components/Login/Login";
-import {Layout} from "./components/Layout/Layout";
+import {LayoutApp} from "./components/Layout/LayoutApp";
+import {AppRootStateType} from "./redux/store";
+import {LoaderMu} from "./components/Users/LoaderMU";
+import {connect} from "react-redux";
+import {compose} from "redux";
+import {initializeApp} from "./redux/app-reducer";
+import {withRouter} from "./components/Profile/WithRouterContainer";
 
 
-export const ROUTES = {
-    profile: '/profile/:userId?',
-    dialogs: '/dialogs',
-    users: '/users',
-    auth: '/login'
-};
+type MapDispatchPropsType = {
+    initializeApp: () => void
+}
+type OwnTypeProps = MapDispatchPropsType & MapStatePropsType
+
+class App extends React.Component<OwnTypeProps> {
+
+    componentDidMount() {
+        this.props.initializeApp?.()
+
+    }
+
+    render() {
+        if (!this.props.initialized) {
+            return <LoaderMu/>
+        }
+        return (
+            <LayoutApp/>
+        )
+    }
+}
+
+type MapStatePropsType = {
+    initialized: boolean
+}
+
+const mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
+    initialized: state.app.initialized
+})
 
 
-export const App = () => (
+export default compose<React.ComponentType>(
+    withRouter,
+    connect(mapStateToProps, {initializeApp}))(App);
 
-<Layout>
-        <Routes>
-            <Route path={'/'} element={<Navigate to={'/'}/>}/>
-            <Route path={ROUTES.dialogs} element={<DialogsContainer/>}/>
-            <Route path={ROUTES.profile} element={<ProfileContainer/>}/>
-            <Route path={ROUTES.users} element={<UsersContainer/>}/>
-            <Route path={ROUTES.auth} element={<Login/>}/>
-        </Routes>
-    </Layout>
 
-);

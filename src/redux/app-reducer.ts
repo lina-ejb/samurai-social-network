@@ -1,5 +1,3 @@
-import {authAPI} from "../api/api";
-import {Dispatch} from "redux";
 import {getAuthUserData} from "./auth-reducer";
 
 
@@ -20,7 +18,7 @@ export const appReducer = (state: InitialType = initialState, action: ActionType
 
         }
         case 'APP/SET-INITIALIZED': {
-            return {...state, initialized: action.value}
+            return {...state, initialized: true}
         }
         default:
             return state
@@ -34,21 +32,24 @@ export type SetInitializedActionType = ReturnType<typeof initializedSuccess>
 
 // actions
 export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
-export const initializedSuccess = (value: boolean) => ({type: 'APP/SET-INITIALIZED', value} as const)
+export const initializedSuccess = () => ({type: 'APP/SET-INITIALIZED'} as const)
 
 
 // thunks
 
-export const initializedAppTC = () => {
-    return (dispatch: Dispatch<any>) => {
-        authAPI.me()
-            .then((res) => {
-                if (res.data.resultCode === 0) {
-                    dispatch(getAuthUserData())
+export const initializeApp = () => (dispatch: any) => {
+    let promise = dispatch(getAuthUserData())
+    Promise.all([promise])
+        .then(() => {
+            dispatch(initializedSuccess())
+        })
 
-                } else {
-                }
-                dispatch(initializedSuccess(true))
-            })}
+
 
 }
+
+
+// export const initializeApp = () => async(dispatch: any) => {
+//     await dispatch(getAuthUserData())
+//     dispatch(initializedSuccess())
+// }

@@ -18,7 +18,7 @@ type OwnTypeProps = MapDispatchPropsType & MapStatePropsType
 class HeaderContainer extends React.Component<OwnTypeProps> {
 
     componentDidMount() {
-        this.props.getAuthUserData()
+       // this.props.getAuthUserData()
     }
 
     render() {

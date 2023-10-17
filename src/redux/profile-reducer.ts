@@ -1,5 +1,5 @@
-import {GetUsersResponseType, profileAPI, ResponseStatusType, usersAPI} from "../api/api";
-import {AppThunkDispatch} from "./store";
+import { GetUsersResponseType, profileAPI, usersAPI } from "../api/api";
+import { AppThunkDispatch } from "./store";
 
 const ADD_TASK = 'ADD-TASK'
 const CHANGE_TEXT = 'CHANGE-TEXT'
@@ -88,7 +88,9 @@ export const getProfile = (userId: string) => {
             .then(response => {
                 dispatch(setUserProfile(response.data))
 
-            });
+            }).catch(() => {
+
+        });
     }
 }
 

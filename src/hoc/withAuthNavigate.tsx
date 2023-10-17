@@ -1,7 +1,8 @@
 import React from "react";
-import {Navigate} from "react-router-dom";
-import {connect} from "react-redux";
-import {AppRootStateType} from "../redux/store";
+import { Navigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { AppRootStateType } from "../redux/store";
+import { compose } from "redux";
 
 type MapStatePropsType = {
     isAuth: boolean
@@ -21,6 +22,6 @@ export function withAuthNavigate<T>(Component: any) {
         return <Component  {...(restProps as T)}/>
     }
 
-    return connect(mapStateToProps)(NavigateComponent)
+    return compose<React.ComponentType>(connect(mapStateToProps)(NavigateComponent))
 }
 

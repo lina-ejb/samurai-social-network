@@ -1,10 +1,16 @@
 import React from "react";
-import {ProfilePropsType} from "../Profile";
 import s from './ProfileInfo.module.css'
 import img from './profileIMG.png'
-import {LoaderMu} from "../../Users/LoaderMU";
+import {LoaderMu} from "../../common/LoaderMU";
 import {Avatar, Box} from "@mui/material";
 import {ProfileStatus} from './ProfileStatus'
+import { GetUsersResponseType } from "../../../api/api";
+
+export type ProfilePropsType = {
+    profile: GetUsersResponseType | null
+    status:  string
+    updateStatus: (status: string) => void
+}
 
 export const ProfileInfo = (props: ProfilePropsType) => {
 
@@ -24,6 +30,5 @@ export const ProfileInfo = (props: ProfilePropsType) => {
         </Box>
 
     </>
-
 
 }

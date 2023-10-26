@@ -1,100 +1,36 @@
-import React, { ChangeEvent } from "react";
-import { UsersPropsType } from "./UsersContainer";
-import { LoaderMu } from "./LoaderMU";
-import {
-  Avatar,
-  Button,
-  Divider,
-  Link,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Pagination,
-  Typography
-} from "@mui/material";
-import { Box } from "@mui/system";
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { LoaderMu } from "../common/LoaderMU";
+import { getUsersTC, InitialStateType } from "../../redux/users-reducer";
+import { PaginationPage } from "../common/Pagination/PaginationPage";
+import { User } from "./User";
+import { Box } from "@mui/material";
+
+export const Users = () => {
+
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector<boolean>(state => state.usersPage.isLoading);
+  const users = useAppSelector<InitialStateType>(state => state.usersPage);
+  const pageSize = useAppSelector<number>(state => state.usersPage.pageSize);
+  const totalUsersCount = useAppSelector<number>(state => state.usersPage.totalUsersCount);
+  const currentPage = useAppSelector<number>(state => state.usersPage.currentPage);
+  const followingInProgress = useAppSelector<Array<number>>(state => state.usersPage.followingInProgress);
+  const isAuth = useAppSelector<boolean>(state => state.userAuth.isAuth);
 
 
-export class Users extends React.Component<UsersPropsType> {
-
-  componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
-  }
-
-  handleChange = (pageNumber: number) => {
-    this.props.getUsers(pageNumber, this.props.pageSize);
-
-  };
-  unfollowUser = (id: number) => {
-    this.props.unFollowUser(id);
-
-  };
-
-  followUser = (id: number) => {
-    this.props.followUser(id);
-
-  };
-
-  render() {
-
-    const pageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-    return (
-
-      <div>
-        {this.props.isLoading ? null : <LoaderMu />}
-        <Pagination count={pageCount} color="primary"
-                    onChange={(event: ChangeEvent<unknown>, value) => {
-                      this.handleChange(value);
-                    }}
-                    sx={{
-                      "& .MuiPagination-ul": {
-                        display: "flex",
-                        justifyContent: "center",
-                        paddingTop: "10px"
-                      }
-                    }} />
-
-        {this.props.users.users.map(u => <ListItem key={u.id} alignItems="flex-start">
-
-          <Link href={"/profile/" + u.id}>
-            <ListItemAvatar>
-              <Avatar src={u.photos.small != null ? u.photos.small : "/static/images/avatar/1.jpg"} />
-
-            </ListItemAvatar>
-          </Link>
+  useEffect(() => {
+    dispatch(getUsersTC(currentPage, pageSize));
+  }, [currentPage, pageSize, dispatch]);
 
 
-          <ListItemText>{u.name}
-            <Typography color="text.primary">{u.status}</Typography>
-            <Typography> {"u.location.city"}</Typography>
-            <ListItemText> {"u.location.country"}
-              <Divider />
-            </ListItemText>
-          </ListItemText>
-          {!this.props.isAuth && !this.props.params.userId ?
-            <Box></Box>
-            : <Box>
-              {u.followed ?
-                <Button variant="outlined"
-                        size="small"
-                        disabled={this.props.followingInProgress.some((id: number) => id === u.id)}
-                        onClick={() => {
-                          this.unfollowUser(u.id);
-                        }}>
+  return (
+    <Box>
+      {isLoading ? null : <LoaderMu />}
+      <PaginationPage totalUsersCount={totalUsersCount} pageSize={pageSize} />
 
-                  Unfollow</Button>
-                : <Button variant="outlined"
-                          size="small"
-                          disabled={this.props.followingInProgress.some((id: number) => id === u.id)}
-                          onClick={() => {
-                            this.followUser(u.id);
-                          }}>Follow
-                </Button>}
-            </Box>}
+      {users.users.map(u => <User key={u.id}
+                                  user={u} followingInProgress={followingInProgress} isAuth={isAuth} />)}
+    </Box>
+  );
+};
 
-
-        </ListItem>)}
-      </div>
-    );
-  }
-}

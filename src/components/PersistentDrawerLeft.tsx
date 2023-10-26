@@ -34,6 +34,7 @@ export function PersistentDrawerLeft() {
             icon: <PermIdentity fontSize='medium'/>,
             onClick: () => {
                 navigate('/profile')
+
             }
         },
         {

@@ -1,115 +1,98 @@
 import { GetUsersResponseType, profileAPI, usersAPI } from "../api/api";
 import { AppThunkDispatch } from "./store";
 
-const ADD_TASK = 'ADD-TASK'
-const CHANGE_TEXT = 'CHANGE-TEXT'
-const SET_USER_PROFILE = 'SET-USER-PROFILE'
-const SET_STATUS = 'SET_STATUS'
+const ADD_TASK = "profile/ADD-TASK";
+const CHANGE_TEXT = "profile/CHANGE-TEXT";
+const SET_USER_PROFILE = "profile/SET-USER-PROFILE";
+const SET_STATUS = "profile/SET_STATUS";
 
 export type PostType = {
-    _id: number
-    message: string
-    likeCounter: number
+  _id: number
+  message: string
+  likeCounter: number
 }
 export type ProfilePageType = {
-    posts: Array<PostType>
-    newPostMessage: string
-    profile: GetUsersResponseType | null
-    status:  string
+  posts: Array<PostType>
+  newPostMessage: string
+  profile: GetUsersResponseType | null
+  status: string
 }
 
 const initialState: ProfilePageType = {
-    newPostMessage: '',
-    posts: [
-        {_id: 1, message: 'What\'s on your mind?', likeCounter: 25},
-        {_id: 2, message: "Hey mate! How are things going?", likeCounter: 5},
-    ],
-    profile: null as null | GetUsersResponseType,
-    status: '' as string
-}
+  newPostMessage: "",
+  posts: [
+    { _id: 1, message: "What's on your mind?", likeCounter: 25 },
+    { _id: 2, message: "Hey mate! How are things going?", likeCounter: 5 }
+  ],
+  profile: null as null | GetUsersResponseType,
+  status: "" as string
+};
 type ActionType = AddPostTypeAC | ChangeTextTypeAC | SetUserTypeAC | SetStatusAC
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
-    switch (action.type) {
+  switch (action.type) {
 
-        case ADD_TASK:
-            let postMessage = state.newPostMessage
-            return {
-                ...state,
-                newPostMessage: '',
-                posts: [{_id: new Date().getTime(), message: postMessage, likeCounter: 3}, ...state.posts]
-            }
+    case ADD_TASK:
+      let postMessage = state.newPostMessage;
+      return {
+        ...state,
+        newPostMessage: "",
+        posts: [{ _id: new Date().getTime(), message: postMessage, likeCounter: 3 }, ...state.posts]
+      };
 
-        case  CHANGE_TEXT:
-            return {
-                ...state,
-                newPostMessage: action.text
-            }
-        case SET_USER_PROFILE: {
-            return {...state, profile: action.profile}
-        }
-        case SET_STATUS:
-            return { ...state, status: action.status };
-
-        default:
-            return state
-
+    case  CHANGE_TEXT:
+      return {
+        ...state,
+        newPostMessage: action.text
+      };
+    case SET_USER_PROFILE: {
+      return { ...state, profile: action.profile };
     }
-}
+    case SET_STATUS:
+      return { ...state, status: action.status };
+
+    default:
+      return state;
+
+  }
+};
+// types
 
 export type AddPostTypeAC = ReturnType<typeof addPostAC>
-export const addPostAC = () => {
-
-    return {
-        type: ADD_TASK,
-    } as const
-}
 export type ChangeTextTypeAC = ReturnType<typeof newTextAC>
-export const newTextAC = (text: string) => {
-    return {
-        type: CHANGE_TEXT,
-        text
-    } as const
-}
-
 export type SetStatusAC = ReturnType<typeof setStatus>
-export const setStatus = (status: string) => {
-    return {
-        type: SET_STATUS,
-        status
-    } as const
-}
-
 export type SetUserTypeAC = ReturnType<typeof setUserProfile>
-export const setUserProfile = (profile: GetUsersResponseType | null) => ({type: SET_USER_PROFILE, profile} as const)
 
-export const getProfile = (userId: string) => {
-    return (dispatch: AppThunkDispatch) => {
-        usersAPI.getProfile(userId)
-            .then(response => {
-                dispatch(setUserProfile(response.data))
+// actions
 
-            }).catch(() => {
+export const addPostAC = () => ({ type: ADD_TASK } as const);
 
-        });
-    }
-}
+export const newTextAC = (text: string) => ({ type: CHANGE_TEXT, text } as const);
 
-export const getStatus = (userId: string) => {
-    return (dispatch: AppThunkDispatch) => {
-        profileAPI.getStatus(userId)
-            .then(response => {
-                dispatch(setStatus(response.data))
+export const setStatus = (status: any) => ({ type: SET_STATUS, status } as const);
 
-            });
-    }
-}
+export const setUserProfile = (profile: GetUsersResponseType | null) => ({ type: SET_USER_PROFILE, profile } as const);
 
-export const updateStatus = (status: string) => {
-    return (dispatch: AppThunkDispatch) => {
-        profileAPI.updateStatus(status)
-            .then((response) => {
-                if (response.data.resultCode === 0)
-                dispatch(setStatus(status))
-            })
-    }
-}
+// thunks
+export const getProfile = (userId: number) => async (dispatch: AppThunkDispatch) => {
+  try {
+    let response = await usersAPI.getProfile(userId);
+    dispatch(setUserProfile(response.data));
+  } catch (err) {
+
+  }
+};
+
+export const getStatus = (userId: number) => async (dispatch: AppThunkDispatch) => {
+
+    let response = await profileAPI.getStatus(userId);
+    dispatch(setStatus(response.data));
+
+
+};
+
+export const updateStatus = (status: string) => async (dispatch: AppThunkDispatch) => {
+  let response = await profileAPI.updateStatus(status);
+  if (response.data.resultCode === 0)
+    dispatch(setStatus(status));
+
+};

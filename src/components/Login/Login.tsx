@@ -18,7 +18,7 @@ type FormikErrorType = {
 
 }
 
-export const Login = (props: FormikErrorType) => {
+export const Login = () => {
 
     const dispatch = useAppDispatch()
     const isAuth = useAppSelector(state => state.userAuth.isAuth)
@@ -51,8 +51,6 @@ export const Login = (props: FormikErrorType) => {
         onSubmit: (values, submitProps) => {
             dispatch(loginTC(values))
             submitProps.resetForm()
-          //  formik.resetForm()
-
         },
     });
 
@@ -80,9 +78,7 @@ export const Login = (props: FormikErrorType) => {
                         <TextField
                             label="Email"
                             margin="normal"
-
                             {...formik.getFieldProps('email')}
-                            //    onBlur={formik.handleBlur}
 
                         />
                         {formik.touched.email && formik.errors.email ?
@@ -93,15 +89,11 @@ export const Login = (props: FormikErrorType) => {
                             label="Password"
                             margin="normal"
                             {...formik.getFieldProps('password')}
-                            //  onBlur={formik.handleBlur}
                         />
                         {formik.touched.password && formik.errors.password ?
                             <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
                         <FormControlLabel label={'Remember me'}
                                           control={<Checkbox
-                                              // onChange={formik.handleChange}
-                                              // value={formik.values.rememberMe}
-                                              // name={'rememberMe'}
                                               {...formik.getFieldProps('rememberMe')}
                                           />}/>
                         <Button type={'submit'} variant={'contained'} color={'primary'}>

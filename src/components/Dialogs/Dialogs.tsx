@@ -48,7 +48,7 @@ const useStyles = makeStyles({
 export const Dialogs = (props: DialogsPropsType) => {
         const classes = useStyles()
 
-        const mappedDialogs = props.messagesState.dialogs.map((el, index) => (
+        const mappedDialogs = props.messagesState.dialogs.map((el) => (
             <DialogItems
                 key={el._id}
                 name={el.name}
@@ -56,7 +56,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                 user={el.avatar}/>
         ))
 
-        const mappedMessages = props.messagesState.chatBoxMessages.map((el, index) => (
+        const mappedMessages = props.messagesState.chatBoxMessages.map((el) => (
             <Message
                 key={el._id}
                 message={el.message}
@@ -73,7 +73,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                             > {mappedDialogs}</Box>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8} container>
-                    <Grid xs container direction="column" >
+                    <Grid xs={12} item container direction="column" >
                         <Grid className={classes.sender} >
                             <MessageSenderContainer/>
                         </Grid>

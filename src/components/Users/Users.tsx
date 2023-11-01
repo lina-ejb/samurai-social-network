@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { LoaderMu } from "../common/LoaderMU";
+import { Preloader } from "../common/Preloader/Preloader";
 import { getUsersTC, InitialStateType } from "../../redux/users-reducer";
-import { PaginationPage } from "../common/Pagination/PaginationPage";
 import { User } from "./User";
 import { Box } from "@mui/material";
+import UsePagination from "../common/Pagination/UsePagination";
 
-export const Users = () => {
+export default function Users()  {
 
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector<boolean>(state => state.usersPage.isLoading);
@@ -25,8 +25,8 @@ export const Users = () => {
 
   return (
     <Box>
-      {isLoading ? null : <LoaderMu />}
-      <PaginationPage totalUsersCount={totalUsersCount} pageSize={pageSize} />
+      {isLoading ? null : <Preloader />}
+      <UsePagination totalUsersCount={totalUsersCount} pageSize={pageSize} />
 
       {users.users.map(u => <User key={u.id}
                                   user={u} followingInProgress={followingInProgress} isAuth={isAuth} />)}

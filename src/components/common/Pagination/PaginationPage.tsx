@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useCallback } from "react";
 import { Pagination } from "@mui/material";
 import { getUsersTC } from "../../../redux/users-reducer";
-import { useAppDispatch } from "../../../redux/store";
+import { AppThunkDispatch, useAppDispatch } from "../../../redux/store";
 import "./PlainCssPagination.css";
 
 type PaginationPageType = {
@@ -14,11 +14,10 @@ export const PaginationPage: React.FC<PaginationPageType> = ({
                                                                pageSize
                                                              }) => {
   const dispatch = useAppDispatch();
-
   const pageCount = Math.ceil(totalUsersCount / pageSize);
 
   const handleChange = useCallback(function(pageNumber: number) {
-    dispatch(getUsersTC(pageNumber, pageSize));
+    dispatch(getUsersTC(pageNumber, pageSize) as AppThunkDispatch);
   }, [pageSize, dispatch]);
 
   return (

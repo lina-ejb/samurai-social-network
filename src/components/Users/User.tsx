@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Avatar, Button, Divider, Link, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { followUserTC, unfollowUserTC, UserType } from "../../redux/users-reducer";
 import { useParams } from "react-router-dom";
-import { useAppDispatch } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { handleDarkMode } from "../../redux/app-reducer";
 
 type UserPropsType = {
   user: UserType
@@ -34,7 +35,7 @@ export const User: React.FC<UserPropsType> = ({
 
       <Link href={"users/profile/" + user.id}>
         <ListItemAvatar>
-          <Avatar src={user.photos.small != null ? user.photos.small : "/static/images/avatar/1.jpg"} />
+          <Avatar src={user.photos.small != null ? user.photos.small : "/static/images/images/1.jpg"} />
 
         </ListItemAvatar>
       </Link>

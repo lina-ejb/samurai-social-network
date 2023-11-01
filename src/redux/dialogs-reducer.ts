@@ -1,8 +1,8 @@
-import avatar from "../components/avatar/avatar.png";
-import avatar5 from "../components/avatar/avatar2.png";
-import avatar2 from "../components/avatar/avatar3.png";
-import avatar3 from "../components/avatar/avatar4.png";
-import avatar4 from "../components/avatar/avatar5.png";
+import avatar from "../assets/images/avatar.png";
+import avatar5 from "../assets/images/avatar2.png";
+import avatar2 from "../assets/images/avatar3.png";
+import avatar3 from "../assets/images/avatar4.png";
+import avatar4 from "../assets/images/avatar5.png";
 
 const UPDATE_NEW_MESSAGE_TEXT = "dialog/UPDATE-NEW-MESSAGE-TEXT";
 const SEND_NEW_MESSAGE = "dialog/SEND-NEW-MESSAGE";

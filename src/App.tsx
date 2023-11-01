@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./redux/store";
 import { initializeApp } from "./redux/app-reducer";
-import { LoaderMu } from "./components/common/LoaderMU";
+import { Preloader } from "./components/common/Preloader/Preloader";
 import { LayoutApp } from "./components/Layout/LayoutApp";
+
+
+
 
 export const App = () => {
 
@@ -11,10 +14,11 @@ export const App = () => {
 
   useEffect(() => dispatch(initializeApp()), [dispatch]);
   if (!initialize) {
-    return <LoaderMu />;
+    return <Preloader />;
   }
   return (
     <LayoutApp />
+
   );
 };
 

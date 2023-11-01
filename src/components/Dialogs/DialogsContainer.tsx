@@ -8,23 +8,19 @@ import {withAuthNavigate} from "../../hoc/withAuthNavigate";
 
 
 type MapStatePropsType = {
-    messagesState: InitialMessagesPageType
+  messagesState: InitialMessagesPageType
 
 }
 export type DialogsPropsType = MapStatePropsType
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
-    return {
-        messagesState: state.dialogs,
+  return {
+    messagesState: state.dialogs,
 
-    }
+  }
 }
 
- export default compose<React.ComponentType>(
-     connect(mapStateToProps),
-     withAuthNavigate
- )(Dialogs)
-
-
-
-
+export default compose<React.ComponentType>(
+  connect(mapStateToProps),
+  withAuthNavigate
+)(Dialogs)

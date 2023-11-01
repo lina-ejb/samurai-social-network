@@ -1,10 +1,10 @@
-import React, {ReactNode} from 'react';
-import {Box, styled} from "@mui/system";
-import {Toolbar} from "@mui/material";
-import {PersistentDrawerLeft} from "../PersistentDrawerLeft";
-import {Main} from "../Main";
-import {Footer} from "../Footer";
-import {ErrorSnackbar} from "../ErrorSnackbar/ErrorSnackbar";
+import React, { ReactNode } from "react";
+import { Box, styled } from "@mui/system";
+import { Toolbar } from "@mui/material";
+import { PersistentDrawerLeft } from "../PersistentDrawerLeft";
+import { Main } from "../Main";
+import { Footer } from "../Footer";
+import { ErrorSnackbar } from "../ErrorSnackbar/ErrorSnackbar";
 import HeaderContainer from "../Header/HeaderContainer";
 
 
@@ -28,6 +28,7 @@ interface ILayoutProps {
 }
 
 
+
 export const Layout = ({children}: ILayoutProps) => {
 
     return (
@@ -35,9 +36,10 @@ export const Layout = ({children}: ILayoutProps) => {
             <ErrorSnackbar/>
             <OuterContainer>
               <HeaderContainer/>
+
                 <Toolbar/>
                 <InnerContainer>
-                    <PersistentDrawerLeft/>
+                    <PersistentDrawerLeft />
                     <Main>{children}</Main>
                 </InnerContainer>
                 <Footer></Footer>

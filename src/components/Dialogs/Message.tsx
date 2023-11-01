@@ -4,11 +4,9 @@ import {makeStyles} from "@mui/styles";
 import {createTheme} from "@mui/system";
 import {Grid} from "@mui/material";
 
-
 type MessageType = {
     id: string | number
     message: string
-
 }
 
 const theme = createTheme();
@@ -25,14 +23,13 @@ const useStyles = makeStyles({
         }
     },
 
-
 })
 const Message = (props: MessageType) => {
     const classes = useStyles()
     return (
-        <div className={s.messageContainer}>
+        <div className={s.messageContainer} >
 
-            <Grid className={classes.text}> {props.message}</Grid>
+            <Grid className={classes.text} > {props.message}</Grid>
 
         </div>
     )

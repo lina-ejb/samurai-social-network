@@ -17,6 +17,7 @@ export const MessageSender = (props: NewDialogsMessageType) => {
     return (
         <>
             <TextField
+              id={"messageSender"}
                 size="small"
                 placeholder={'Type your text'}
                 value={props.newMessage.newMessageText}

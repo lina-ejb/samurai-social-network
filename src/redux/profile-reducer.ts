@@ -1,10 +1,14 @@
-import { GetUsersResponseType, profileAPI, usersAPI } from "../api/api";
-import { AppThunkDispatch } from "./store";
+import { GetUsersResponseType, profileAPI, ProfileFormType, usersAPI } from "../api/api";
+import { AppRootStateType, AppThunkDispatch } from "./store";
+import { AnyAction, Dispatch } from "redux";
+import { ThunkDispatch } from "redux-thunk";
+import { setAppErrorAC } from "./app-reducer";
 
 const ADD_TASK = "profile/ADD-TASK";
 const CHANGE_TEXT = "profile/CHANGE-TEXT";
 const SET_USER_PROFILE = "profile/SET-USER-PROFILE";
 const SET_STATUS = "profile/SET_STATUS";
+const SAVE_PHOTO_SUCCESS = "profile/SAVE_PHOTO_SUCCESS";
 
 export type PostType = {
   _id: number
@@ -27,7 +31,7 @@ const initialState: ProfilePageType = {
   profile: null as null | GetUsersResponseType,
   status: "" as string
 };
-type ActionType = AddPostTypeAC | ChangeTextTypeAC | SetUserTypeAC | SetStatusAC
+type ActionType = AddPostTypeAC | ChangeTextTypeAC | SetUserTypeAC | SetStatusAC | SavePhotoSuccessAC
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
   switch (action.type) {
 
@@ -50,6 +54,10 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     case SET_STATUS:
       return { ...state, status: action.status };
 
+    case SAVE_PHOTO_SUCCESS: {
+      return { ...state, profile: { ...state.profile, photos: action.photos } as GetUsersResponseType };
+    }
+
     default:
       return state;
 
@@ -61,6 +69,7 @@ export type AddPostTypeAC = ReturnType<typeof addPostAC>
 export type ChangeTextTypeAC = ReturnType<typeof newTextAC>
 export type SetStatusAC = ReturnType<typeof setStatus>
 export type SetUserTypeAC = ReturnType<typeof setUserProfile>
+type SavePhotoSuccessAC = ReturnType<typeof savePhotoSuccess>
 
 // actions
 
@@ -71,6 +80,8 @@ export const newTextAC = (text: string) => ({ type: CHANGE_TEXT, text } as const
 export const setStatus = (status: any) => ({ type: SET_STATUS, status } as const);
 
 export const setUserProfile = (profile: GetUsersResponseType | null) => ({ type: SET_USER_PROFILE, profile } as const);
+
+const savePhotoSuccess = (photos: any) => ({ type: SAVE_PHOTO_SUCCESS, photos } as const);
 
 // thunks
 export const getProfile = (userId: number) => async (dispatch: AppThunkDispatch) => {
@@ -84,8 +95,8 @@ export const getProfile = (userId: number) => async (dispatch: AppThunkDispatch)
 
 export const getStatus = (userId: number) => async (dispatch: AppThunkDispatch) => {
 
-    let response = await profileAPI.getStatus(userId);
-    dispatch(setStatus(response.data));
+  let response = await profileAPI.getStatus(userId);
+  dispatch(setStatus(response.data));
 
 
 };
@@ -95,4 +106,22 @@ export const updateStatus = (status: string) => async (dispatch: AppThunkDispatc
   if (response.data.resultCode === 0)
     dispatch(setStatus(status));
 
+};
+
+export const savePhoto = (file: File) => async (dispatch: AppThunkDispatch) => {
+  let response = await profileAPI.savePhoto(file);
+  if (response.data.resultCode === 0) {
+    dispatch(savePhotoSuccess(response.data.data.photos));
+  }
+};
+
+export const saveProfile = (profile: ProfileFormType) => async (dispatch: AppThunkDispatch, getState: any) => {
+  let userId = getState().userAuth.id;
+  let response = await profileAPI.saveProfile(profile);
+  if (response.data.resultCode === 0) {
+    dispatch(getProfile(userId))
+  } else {
+    dispatch(setAppErrorAC('Некорректный URL'));
+    return Promise.reject(response.data.messages[0])
+  }
 };

@@ -6,9 +6,9 @@ export const Footer = function ({children}: PropsWithChildren<unknown>) {
 
 
     return (
-        <Box  sx={{
-            backgroundColor: '#2B6E99',
-            color: '#9CD4C7',
+        <Box  id={'footerBox'} sx={{
+          backgroundColor: "var(--background)",
+            color: '#fff',
             fontWeight: '500',
             padding: theme.spacing(2),
             textAlign: 'center',
@@ -19,5 +19,3 @@ export const Footer = function ({children}: PropsWithChildren<unknown>) {
     );
 };
 
-// #25476a
-//#5C80BC

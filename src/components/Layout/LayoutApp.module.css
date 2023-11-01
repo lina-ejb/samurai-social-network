@@ -1,0 +1,33 @@
+[data-theme='false'] {
+    --color: #FFFFFF;
+    --background: #282828;
+}
+
+[data-footertheme='true'] {
+    --background: #2B6E99;
+}
+
+[data-footertheme='false'] {
+    --background: #282828;
+}
+
+[data-themeimg='false'] {
+    --background: #404040;
+}
+
+[data-themeimg='true'] {
+    --background: #ACC8E5;
+}
+
+[data-themeforbg ='false'] {
+    --background: #D4D4D4;
+}
+
+[data-themeforbg ='true'] {
+    --background: #f2edf3;
+}
+
+header > div {
+    background-color: var(--background);
+}
+

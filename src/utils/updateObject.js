@@ -6,3 +6,4 @@ export const usersToggleFollow = (items, actionId, prototype,  param) =>
     }
     return user;
   });
+

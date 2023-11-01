@@ -1,4 +1,6 @@
-
+.MuiPaper-root {
+    background-color: #0066cc;
+}
 
  .dialog img {
     height: 50px;

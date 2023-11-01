@@ -1,0 +1,103 @@
+.profileImage {
+    background-color: var(--background);
+    background-size: cover;
+    min-height: 207px;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 5px;
+    background-position: center;
+}
+
+.profileAvatar {
+    width: 200px;
+    height: 200px;
+}
+
+.uploadBtnWrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    padding-top: 10px;
+}
+
+.btn {
+    border: none;
+    color: #FFFFFF;
+    background-color: #1976d2;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+.uploadBtnWrapper input[type = file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+}
+
+.profileImage img {
+    max-width: 100%;
+}
+
+.MuiBox-root.css-lalt9j .MuiBox-root.css-s4lepo {
+    font-size: 20px;
+    line-height: 1.5;
+    color: #3d2f45;
+    padding-top: 10px;
+}
+
+.MuiBox-root.css-s4lepo {
+    font-size: 25px;
+}
+
+
+.profileInfoContainer.MuiBox-root.css-0 {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.profileInfoMainContainer {
+    width: 30%;
+}
+
+.profileInfoAboutMeContainer {
+    display: flex;
+    gap: 50px;
+}
+
+.aboutMeContainer {
+    line-height: 2.75;
+}
+
+.fullName {
+    color: #004898;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+.profileContacts {
+    width: inherit;
+}
+.profileDataContacts {
+    width: 220px;
+}
+.divider {
+    padding-top: 20px;
+}
+
+h6 {
+    padding: 20px;
+}

@@ -7,7 +7,7 @@ import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
 import { Navigate, useParams } from "react-router-dom";
 
 
-export const Profile = () => {
+export default function Profile() {
 
   const [isOwner, setIsOwner] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -17,9 +17,7 @@ export const Profile = () => {
   const status = useAppSelector<string>((state) => state.profile.status);
   const authorisedUserID = useAppSelector<number | null>((state) => state.userAuth.id);
   const isAuth = useAppSelector<boolean>((state) => state.userAuth.isAuth);
-
-  const params = useParams();
-  const userId = params.userId;
+  const { userId } = useParams();
 
   useEffect(() => {
 
@@ -45,12 +43,12 @@ export const Profile = () => {
   return (
     <div>
       <ProfileInfo
+        isOwner={isOwner}
         profile={profile}
         status={status}
-        updateStatus={updateStatus} />
+        updateStatus={updateStatus}
+      />
       {!editMode && isOwner && <MyPostsContainer />}
-
     </div>
-
   );
 };

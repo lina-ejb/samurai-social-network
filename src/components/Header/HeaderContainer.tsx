@@ -1,8 +1,8 @@
 import React from "react";
 import Header from "./Header";
-import {connect} from "react-redux";
-import {AppRootStateType} from "../../redux/store";
-import {getAuthUserData, logOutTC} from "../../redux/auth-reducer";
+import { connect } from "react-redux";
+import { AppRootStateType } from "../../redux/store";
+import { getAuthUserData, logOutTC } from "../../redux/auth-reducer";
 
 type MapDispatchPropsType = {
     getAuthUserData: () => void
@@ -28,6 +28,7 @@ class HeaderContainer extends React.Component<OwnTypeProps> {
                 isAuth={this.props.isAuth}
                 logOut={this.props.logOut}
             />
+
         )
     }
 }

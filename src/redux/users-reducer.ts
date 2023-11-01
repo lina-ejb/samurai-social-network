@@ -49,14 +49,14 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
     case FOLLOW:
       return {
         ...state,
-       users: usersToggleFollow(state.users, action.userId, 'id', { followed: true })
-      //  users: state.users.map(u => u.id === action.userId ? { ...u, followed: true } : u)
+        users: usersToggleFollow(state.users, action.userId, "id", { followed: true })
+        //  users: state.users.map(u => u.id === action.userId ? { ...u, followed: true } : u)
       };
 
     case UNFOLLOW:
       return {
         ...state,
-        users: usersToggleFollow(state.users, action.userId, 'id', { followed: false })
+        users: usersToggleFollow(state.users, action.userId, "id", { followed: false })
       };
     case SET_USERS : {
       return {
@@ -143,18 +143,21 @@ const followUnfollowFlow = async (dispatch: Dispatch<ActionType>, id: number, ap
 
 // thunks
 export const getUsersTC = (currentPage: number, pageSize: number) => async (dispatch: Dispatch<ActionType>) => {
-  dispatch(toggleIsFetching(true));
-  let data = await usersAPI.getUsers(currentPage, pageSize);
-  dispatch(toggleIsFetching(false));
-  dispatch(setUsers(data.items));
-  dispatch(setTotalUsersCount(data.totalCount));
+  try {
+    dispatch(toggleIsFetching(true));
+    let data = await usersAPI.getUsers(currentPage, pageSize);
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(data.totalCount));
+  } catch (err) {
+  }
+
 };
 
 export const followUserTC = (id: number) => async (dispatch: Dispatch<ActionType>) => {
   try {
     followUnfollowFlow(dispatch, id, usersAPI.addFollower.bind(usersAPI), follow);
-  }
-  catch (err) {
+  } catch (err) {
 
   }
 };

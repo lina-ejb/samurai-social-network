@@ -16,7 +16,7 @@ const DialogItems = (props: DialogItemsType) => {
                 <img alt='user_photo'
                     src={props.user}
                 />
-                <NavLink to={path}>{props.name}</NavLink>
+                <NavLink id={'name'} to={path}>{props.name}</NavLink>
             </Box>
         )
     }

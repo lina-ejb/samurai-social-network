@@ -18,7 +18,7 @@ type FormikErrorType = {
 
 }
 
-export const Login = () => {
+const Login = () => {
 
     const dispatch = useAppDispatch()
     const isAuth = useAppSelector(state => state.userAuth.isAuth)
@@ -107,3 +107,5 @@ export const Login = () => {
         </Grid>
     </Grid>
 }
+
+export default Login

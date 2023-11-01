@@ -1,13 +1,18 @@
-import React from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import DialogsContainer from "../Dialogs/DialogsContainer";
-import { Login } from "../Login/Login";
 import { Layout } from "./Layout";
 import { HomePage } from "../HomePage/HomePage";
-import { Users } from "../Users/Users";
-import { Profile } from "../Profile/Profile";
-import { ErrorPage } from "../../ErrorPage";
+import { Preloader } from "../common/Preloader/Preloader";
+import { useAppSelector } from "../../redux/store";
+import "./LayoutApp.module.css";
+import { getElementID, getElementSelector } from "../../utils/getElementHelper";
 
+
+const DialogsContainer = lazy(() => import("../Dialogs/DialogsContainer"));
+const Profile = lazy(() => import("../Profile/Profile"));
+const ErrorPage = lazy(() => import("../../ErrorPage"));
+const Users = lazy(() => import("../Users/Users"));
+const Login = lazy(() => import("../Login/Login"));
 
 export const ROUTES = {
   profile: "/profile",
@@ -17,18 +22,51 @@ export const ROUTES = {
   auth: "/login"
 };
 
-export const  LayoutApp = () => {
+export const LayoutApp = () => {
+  const [theme, setTheme] = useState<string | null>(null);
+  const lightMode = useAppSelector((state) => state.app.isLightMode);
+
+  useEffect(() => {
+    let theme = localStorage.getItem("lightMode");
+    setTheme(theme);
+  });
+
+
+  let headerElement = getElementID("header");
+  let leftDrawer: HTMLElement | null = getElementSelector(".makeStyles-drawer-1 .MuiPaper-root");
+  let drawerItems = document.querySelectorAll<HTMLElement>(".css-lvjbvh-MuiListItemIcon-root");
+  let drawerText = getElementID("drawer");
+  let footerElement = getElementID("footerBox");
+  const mainBG: HTMLElement | null = getElementSelector(".css-ksmjtb");
+
+  function changeModeHandler() {
+    headerElement!.dataset.theme = lightMode + "";
+    leftDrawer!.dataset.theme = lightMode + "";
+    drawerText!.dataset["theme"] = lightMode + "";
+    footerElement!.dataset.footertheme = lightMode + "";
+    mainBG!.dataset.themeforbg = lightMode + "";
+    for (let i = 0; i < drawerItems.length; i++) {
+      drawerItems[i].dataset.theme = lightMode + "";
+    }
+  }
+
+  if (theme) {
+    changeModeHandler();
+  }
+
   return (
     <Layout>
-      <Routes>
-        <Route path={"/"} element={<HomePage />} />
-        <Route path={ROUTES.dialogs} element={<DialogsContainer />} />
-        <Route path={ROUTES.profile} element={<Profile />} />
-        <Route path={ROUTES.userProfile} element={<Profile />} />
-        <Route path={ROUTES.users} element={<Users/>} />
-        <Route path={ROUTES.auth} element={<Login />} />
-         <Route path="*" element={<ErrorPage/>} />
-      </Routes>
+      <Suspense fallback={<Preloader />}>
+        <Routes>
+          <Route path={"/"} element={<HomePage />} />
+          <Route path={ROUTES.dialogs} element={<DialogsContainer />} />
+          <Route path={ROUTES.profile} element={<Profile />} />
+          <Route path={ROUTES.userProfile} element={<Profile />} />
+          <Route path={ROUTES.users} element={<Users />} />
+          <Route path={ROUTES.auth} element={<Login />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </Suspense>
     </Layout>
   );
 };

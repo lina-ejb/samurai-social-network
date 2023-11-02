@@ -37,7 +37,7 @@ export const LayoutApp = () => {
   let drawerItems = document.querySelectorAll<HTMLElement>(".css-lvjbvh-MuiListItemIcon-root");
   let drawerText = getElementID("drawer");
   let footerElement = getElementID("footerBox");
-  const mainBG: HTMLElement | null = getElementSelector(".css-118j5k8");
+  const mainBG: HTMLElement | null = getElementSelector(".css-ksmjtb");
 
   function changeModeHandler() {
     if (headerElement) {

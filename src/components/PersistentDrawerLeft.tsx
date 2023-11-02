@@ -24,9 +24,7 @@ const useStyles = makeStyles({
     "& .MuiTypography-root": {
       color: 'var(--color)'
     },
-    ".jss1 .MuiPaper-root": {
-      backgroundColor: "var(--background)",
-    }
+
   }
 });
 

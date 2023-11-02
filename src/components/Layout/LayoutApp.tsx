@@ -29,7 +29,7 @@ export const LayoutApp = () => {
   useEffect(() => {
     let theme = localStorage.getItem("lightMode");
     setTheme(theme);
-  });
+  }, [theme]);
 
 
   let headerElement = getElementID("header");
@@ -44,17 +44,18 @@ export const LayoutApp = () => {
       headerElement.dataset.theme = lightMode + "";
     }
     if (leftDrawer) {
-      leftDrawer.dataset.theme = lightMode + "";
+      leftDrawer.dataset.themedrawer = lightMode + "";
     }
+
     if (drawerText) {
-      drawerText.dataset["theme"] = lightMode + "";
+      drawerText.dataset.theme = lightMode + "";
     }
     if (footerElement) {
       footerElement.dataset.footertheme = lightMode + "";
     }
-    if (mainBG) {
-      mainBG.dataset.themeforbg = lightMode + "";
-    }
+    // if (mainBG) {
+    //   mainBG.dataset.themeforbg = lightMode + "";
+    // }
     if (drawerItems) {
       for (let i = 0; i < drawerItems.length; i++) {
         drawerItems[i].dataset.theme = lightMode + "";

@@ -1,6 +1,6 @@
 {
-  "name": "todo15v3",
-  "homepage": "https://lina-ejb.github.io/samurai-social-network",
+  "name": "samurai-social-network",
+  "homepage": "https://lina-ejb.github.io/samurai-social-network/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -40,7 +40,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "yarn run build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

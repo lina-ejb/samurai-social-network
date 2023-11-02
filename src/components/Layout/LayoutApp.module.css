@@ -11,6 +11,10 @@
     --background: #282828;
 }
 
+[data-themedrawer='false'] {
+    --background: #282828;
+}
+
 [data-themeimg='false'] {
     --background: #404040;
 }
@@ -19,15 +23,14 @@
     --background: #ACC8E5;
 }
 
-[data-themeforbg ='false'] {
-    --background: #D4D4D4;
-}
+/*[data-themeforbg ='false'] {*/
+/*    --background: #D4D4D4;*/
+/*}*/
 
-[data-themeforbg ='true'] {
-    --background: #f2edf3;
-}
+/*[data-themeforbg ='true'] {*/
+/*    --background: #f2edf3;*/
+/*}*/
 
 header > div {
     background-color: var(--background);
 }
-

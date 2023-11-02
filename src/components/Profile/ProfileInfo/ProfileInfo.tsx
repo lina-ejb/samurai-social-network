@@ -109,7 +109,7 @@ const ProfileData: React.FC<ProfileDataType> = ({
                                                 }) => {
 
   const [show, setShow] = useState(false);
-  let btnText = !show ? 'Click to see the contacts' : 'contacts'
+  let btnText = !show ? "Click to see the contacts" : "contacts";
   const toggleShow = () => {
     setShow(!show);
   };

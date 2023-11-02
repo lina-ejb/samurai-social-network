@@ -40,13 +40,25 @@ export const LayoutApp = () => {
   const mainBG: HTMLElement | null = getElementSelector(".css-ksmjtb");
 
   function changeModeHandler() {
-    headerElement!.dataset.theme = lightMode + "";
-    leftDrawer!.dataset.theme = lightMode + "";
-    drawerText!.dataset["theme"] = lightMode + "";
-    footerElement!.dataset.footertheme = lightMode + "";
-    mainBG!.dataset.themeforbg = lightMode + "";
-    for (let i = 0; i < drawerItems.length; i++) {
-      drawerItems[i].dataset.theme = lightMode + "";
+    if (headerElement) {
+      headerElement.dataset.theme = lightMode + "";
+    }
+    if (leftDrawer) {
+      leftDrawer.dataset.theme = lightMode + "";
+    }
+    if (drawerText) {
+      drawerText.dataset["theme"] = lightMode + "";
+    }
+    if (footerElement) {
+      footerElement.dataset.footertheme = lightMode + "";
+    }
+    if (mainBG) {
+      mainBG.dataset.themeforbg = lightMode + "";
+    }
+    if (drawerItems) {
+      for (let i = 0; i < drawerItems.length; i++) {
+        drawerItems[i].dataset.theme = lightMode + "";
+      }
     }
   }
 

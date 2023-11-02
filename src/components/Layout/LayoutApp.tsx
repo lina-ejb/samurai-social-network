@@ -33,7 +33,7 @@ export const LayoutApp = () => {
 
 
   let headerElement = getElementID("header");
-  let leftDrawer: HTMLElement | null = getElementSelector(".makeStyles-drawer-1 .MuiPaper-root");
+  let leftDrawer: HTMLElement | null = getElementSelector(".makeStyles-drawer-1 .MuiPaper-root .css-118j5k8");
   let drawerItems = document.querySelectorAll<HTMLElement>(".css-lvjbvh-MuiListItemIcon-root");
   let drawerText = getElementID("drawer");
   let footerElement = getElementID("footerBox");

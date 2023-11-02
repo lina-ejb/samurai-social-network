@@ -24,7 +24,7 @@
 }
 
 [data-themeforbg ='false'] {
-    --background: #D4D4D4;
+    --background: #282828;
 }
 
 [data-themeforbg ='true'] {

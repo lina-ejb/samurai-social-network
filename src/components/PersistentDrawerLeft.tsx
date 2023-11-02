@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   drawer: {
     width: "190px",
     "& .MuiPaper-root": {
-      backgroundColor: "var(--background)",
+      backgroundColor: 'var(--background)',
       position: "static"
     },
     "& .MuiList-root": {

@@ -37,7 +37,7 @@ export const LayoutApp = () => {
   let drawerItems = document.querySelectorAll<HTMLElement>(".css-lvjbvh-MuiListItemIcon-root");
   let drawerText = getElementID("drawer");
   let footerElement = getElementID("footerBox");
-  const mainBG: HTMLElement | null = getElementSelector(".css-ksmjtb");
+  const mainBG: HTMLElement | null = getElementSelector(".css-118j5k8");
 
   function changeModeHandler() {
     if (headerElement) {
@@ -53,9 +53,9 @@ export const LayoutApp = () => {
     if (footerElement) {
       footerElement.dataset.footertheme = lightMode + "";
     }
-    // if (mainBG) {
-    //   mainBG.dataset.themeforbg = lightMode + "";
-    // }
+    if (mainBG) {
+      mainBG.dataset.themeforbg = lightMode + "";
+    }
     if (drawerItems) {
       for (let i = 0; i < drawerItems.length; i++) {
         drawerItems[i].dataset.theme = lightMode + "";

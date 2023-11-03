@@ -16,7 +16,7 @@ const Login = lazy(() => import("../Login/Login"));
 
 export const ROUTES = {
   profile: "/profile",
-  userProfile: "/users/profile/:userId",
+  userProfile: "/users/:userId",
   dialogs: "/dialogs",
   users: "/users",
   auth: "/login"
@@ -70,7 +70,7 @@ export const LayoutApp = () => {
   return (
     <Layout>
       <Suspense fallback={<Preloader />}>
-        <Routes>
+        <Routes >
           <Route path={"/"} element={<HomePage />} />
           <Route path={ROUTES.dialogs} element={<DialogsContainer />} />
           <Route path={ROUTES.profile} element={<Profile />} />

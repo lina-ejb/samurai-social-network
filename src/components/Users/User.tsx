@@ -32,7 +32,7 @@ export const User: React.FC<UserPropsType> = ({
 
     <ListItem key={user.id} alignItems="flex-start">
 
-        <Link href={"users/#" + user.id}>
+        <Link href={"/users/#" + user.id}>
           <ListItemAvatar>
             <Avatar src={user.photos.small != null ? user.photos.small : "/static/images/images/1.jpg"} />
 

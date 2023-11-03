@@ -2,7 +2,7 @@ import React from "react";
 import { Avatar, Button, Divider, Link, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { followUserTC, unfollowUserTC, UserType } from "../../redux/users-reducer";
-import { BrowserRouter, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppDispatch } from "../../redux/store";
 
 type UserPropsType = {
@@ -32,7 +32,7 @@ export const User: React.FC<UserPropsType> = ({
 
     <ListItem key={user.id} alignItems="flex-start">
 
-        <Link href={"users/" + user.id}>
+        <Link href={"users/#" + user.id}>
           <ListItemAvatar>
             <Avatar src={user.photos.small != null ? user.photos.small : "/static/images/images/1.jpg"} />
 

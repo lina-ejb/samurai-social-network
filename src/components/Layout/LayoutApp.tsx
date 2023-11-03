@@ -16,7 +16,7 @@ const Login = lazy(() => import("../Login/Login"));
 
 export const ROUTES = {
   profile: "/profile",
-  userProfile: "/:userId",
+  userProfile: "/users/:userId",
   dialogs: "/dialogs",
   users: "/users",
   auth: "/login"
